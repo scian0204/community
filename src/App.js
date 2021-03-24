@@ -13,21 +13,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      greeting: null
+      rows: []
     };
-  }
-
-  componentDidMount() {
-    // fetch('http://localhost:3002/api')
-    //     .then(res=>res.json())
-    //     .then(data=>this.setState({greeting:data.greeting}));
+    fetch('http://localhost:3002/api')
+        .then(res=>res.json())
+        .then(data=>this.setState({rows:data.result.rows}));
   }
 
   render() {
-    let {greeting} = this.state;
+    let {rows} = this.state;
+    console.log(rows);
     return (
       <HashRouter>
-        <h1>{greeting}</h1>
         <Logo />
         <Route path="/" exact={true} component={Home} />
         <Route path="/BoardApprove" component={BoardApprove} />
@@ -36,6 +33,9 @@ class App extends React.Component {
         <Route path="/PostShow" component={PostShow} />
         <Route path="/Profile" component={Profile} />
         <Route path="/Search" component={Search} />
+        {rows.map(row => {
+          return <span>{row.title} / </span>
+        })}
       </HashRouter>
     );
   }
