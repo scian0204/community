@@ -9,19 +9,36 @@ import PostShow from './routes/PostShow';
 import Profile from './routes/Profile';
 import Search from './routes/Search';
 
-function App() {
-  return (
-    <HashRouter>
-      <Logo />
-      <Route path="/" exact={true} component={Home} />
-      <Route path="/BoardApprove" component={BoardApprove} />
-      <Route path="/BoardShow" component={BoardShow} />
-      <Route path="/Form" component={Form} />
-      <Route path="/PostShow" component={PostShow} />
-      <Route path="/Profile" component={Profile} />
-      <Route path="/Search" component={Search} />
-    </HashRouter>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      greeting: null
+    };
+  }
+
+  componentDidMount() {
+    // fetch('http://localhost:3002/api')
+    //     .then(res=>res.json())
+    //     .then(data=>this.setState({greeting:data.greeting}));
+  }
+
+  render() {
+    let {greeting} = this.state;
+    return (
+      <HashRouter>
+        <h1>{greeting}</h1>
+        <Logo />
+        <Route path="/" exact={true} component={Home} />
+        <Route path="/BoardApprove" component={BoardApprove} />
+        <Route path="/BoardShow" component={BoardShow} />
+        <Route path="/Form" component={Form} />
+        <Route path="/PostShow" component={PostShow} />
+        <Route path="/Profile" component={Profile} />
+        <Route path="/Search" component={Search} />
+      </HashRouter>
+    );
+  }
 }
 
 export default App;
