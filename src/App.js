@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Home from './routes/Home';
 import Logo from './components/Logo';
+import SearchBar from './components/SearchBar';
 import BoardApprove from './routes/BoardApprove';
 import BoardShow from './routes/BoardShow';
 import Form from './routes/Form';
@@ -15,17 +16,27 @@ class App extends React.Component {
     this.state = {
       rows: []
     };
-    fetch('http://localhost:3002/api')
-        .then(res=>res.json())
-        .then(data=>this.setState({rows:data.result.rows}));
+    // fetch('http://localhost:3002/api')
+    //     .then(res=>res.json())
+    //     .then(data=>this.setState({rows:data.result.rows}));
   }
 
   render() {
-    let {rows} = this.state;
-    console.log(rows);
+    // let {rows} = this.state;
+    // console.log(rows);
     return (
       <HashRouter>
-        <Logo />
+        <div className="container-fluid">
+          <br/>
+          <div className='row'>
+            <div className='col-sm-4'>
+              <Logo />
+            </div>
+            <div className='col-sm-4'>
+              <SearchBar />
+            </div>
+            <div className='col-sm-4'></div>
+        </div>
         <Route path="/" exact={true} component={Home} />
         <Route path="/BoardApprove" component={BoardApprove} />
         <Route path="/BoardShow" component={BoardShow} />
@@ -33,9 +44,10 @@ class App extends React.Component {
         <Route path="/PostShow" component={PostShow} />
         <Route path="/Profile" component={Profile} />
         <Route path="/Search" component={Search} />
-        {rows.map(row => {
+        </div>
+        {/* {rows.map(row => {
           return <span>{row.title} / </span>
-        })}
+        })} */}
       </HashRouter>
     );
   }
