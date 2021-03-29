@@ -7,8 +7,9 @@ class PostList extends React.Component {
     super(props);
     this.state = {
       queryData: {
+        boardid: null,
         order: " order by postid desc",
-        qwhere: " where boardid=" + props.boardid,
+        qwhere: " where boardid=",
       },
       rows: [],
       paging: {
@@ -18,8 +19,17 @@ class PostList extends React.Component {
         maxrows: 10,
       }
     };
+    this.state.queryData.boardid = props.boardid;
     axios.post('http://localhost:3002/api/postList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
+  }
+
+  componentDidUpdate() {
+    if (this.props.checkFlag() === true) {
+      this.state.queryData.boardid = this.props.boardid;
+      axios.post('http://localhost:3002/api/postList', this.state.queryData)
+      .then(data=>this.setState({rows:data.data.result.rows}));
+    }
   }
 
   render() {
@@ -47,7 +57,6 @@ class PostList extends React.Component {
     
     return (
       <div>
-
         <div id="bdr" style={{"border": "1px solid blue", "padding": "10px"}}>
           <div id="btns">
             <button className="btn btn-primary">일반글</button>

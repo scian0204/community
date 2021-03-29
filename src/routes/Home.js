@@ -8,7 +8,21 @@ class Home extends React.Component {
       super(props);
       this.state = {
           boardid: 1,
+          flag: false
       };
+    }
+
+    checkFlag = () => {
+        if (this.state.flag === true) {
+            this.setState({flag: false});
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    setBoardid = (boardid) => {
+        this.setState((e) => ({boardid: boardid, flag: true}));
     }
 
     render() {
@@ -17,8 +31,8 @@ class Home extends React.Component {
             <br/>
                 <div className="container-fluid">
                     <div className='row'>
-                        <div className='col-sm-2'><BoardList /></div>
-                        <div className='col-sm-8'><PostList boardid={this.state.boardid} /></div>
+                        <div className='col-sm-2'><BoardList setBid={this.setBoardid} /></div>
+                        <div className='col-sm-8'><PostList boardid={this.state.boardid} checkFlag={this.checkFlag} /></div>
                         <div className='col-sm-2'>Login</div>
                     </div>
                 </div>

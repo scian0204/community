@@ -26,7 +26,7 @@ router.post('/postList', (req, res) => {
     }
   };
   let queryData = req.body;
-  let sql = `select postid, title, username, writedate, viewcnt, recmd from post${queryData.qwhere}${queryData.order}`;
+  let sql = `select postid, title, username, writedate, viewcnt, recmd from post${queryData.qwhere}${queryData.boardid}${queryData.order}`;
   // console.log(sql);
   var query = connection.query(sql, function(err, rows) {
     if(err) throw err;
@@ -41,12 +41,24 @@ router.post('/postList', (req, res) => {
 });
 
 router.post('/boardList', (req, res) => {
+  let responseData = {
+    result: {
+      boardid: null,
+      boardname: null,
+      cnt: null
+    }
+  };
   let sql = `select post.boardid, board.boardname, count(post.postid) as cnt from post left join board on post.boardid = board.boardid group by boardid union select post.boardid, board.boardname, count(post.postid) as cnt from post right join board on post.boardid = board.boardid group by boardid order by cnt desc limit 8`;
   let boardList = {};
   var query = connection.query(sql, function(err, rows) {
     if(err) throw err;
-    boardList = {rows};
-    res.json(boardList);
+    if(rows[0]) {
+      responseData.err = 1;
+      responseData.result = {rows};
+    } else {
+      responseData.err = 0;
+    }
+    res.json(responseData);
   });
 });
 
