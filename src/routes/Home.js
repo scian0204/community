@@ -1,7 +1,7 @@
 import React from 'react';
 import PostList from '../components/PostList';
 import BoardList from '../components/BoardList';
-// import Login from '../components/Login';
+import Login from '../components/Login';
 
 class Home extends React.Component {
     constructor(props) {
@@ -33,7 +33,7 @@ class Home extends React.Component {
                     <div className='row'>
                         <div className='col-sm-2'><BoardList setBid={this.setBoardid} /></div>
                         <div className='col-sm-8'><PostList boardid={this.state.boardid} checkFlag={this.checkFlag} /></div>
-                        <div className='col-sm-2'>Login</div>
+                        <div className='col-sm-2'><Login /></div>
                     </div>
                 </div>
             </div>

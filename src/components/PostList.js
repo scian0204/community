@@ -26,6 +26,7 @@ class PostList extends React.Component {
 
   componentDidUpdate() {
     if (this.props.checkFlag() === true) {
+      // this.setState({queryData: {...this.state.queryData, boardid: this.props.boardid}})
       this.state.queryData.boardid = this.props.boardid;
       axios.post('http://localhost:3002/api/postList', this.state.queryData)
       .then(data=>this.setState({rows:data.data.result.rows}));
