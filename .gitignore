@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+/server/images/*.*
+!/server/images/*.js
+
 # testing
 /coverage
 
