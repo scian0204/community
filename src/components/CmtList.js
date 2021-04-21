@@ -9,6 +9,7 @@ class CmtList extends React.Component {
       queryData: {
         postid: null,
         username: null,
+        userid: null,
       },
       rows: [],
       paging: {
@@ -18,22 +19,30 @@ class CmtList extends React.Component {
         maxrows: 10,
       },
       isProfile: false,
+      circleStyle: {
+        "width": "30px",
+        "height": "30px",
+        "WebkitBorderRadius": "700px",
+        "MozBorderRadius": "700px",
+        "borderRadius": "700px",
+        "backgroundColor": "gray",
+      }
     };
     if (!props.postid) {
-      this.state.queryData.username = props.username;
-      this.state.isProfile = true;
-
+        this.state.queryData.username = props.username;
+        this.state.isProfile = true;
     }else {
       this.state.queryData.postid = props.postid;
 
     }
-    axios.post('http://localhost:3002/api/cmtList', this.state.queryData)
+    axios.post('http://localhost:8080/api/cmtList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
   }
 
   render() {
     let rows = this.state.rows;
     if (rows) {
+      console.log(rows);
       const {paging} = this.state;
       let nextgroup = paging.wheregroup + 1;
       let priorgroup = paging.wheregroup - 1;
@@ -103,7 +112,8 @@ class CmtList extends React.Component {
                           } : {
                               pathname: '/PostShow',
                               state: {postid: rows[e].postid},
-                          }}>{rows[e].username}</Link>
+                          }}><img style={this.state.circleStyle} src={`http://localhost:8080/api/image?fileName=${rows[e].image}`} />&nbsp;{rows[e].username}
+                          </Link>
                           {/* // <% if(isLogin) { %>
                           // <% if(rs.getString("userid").equals(session.getAttribute("uid")) || session.getAttribute("isAdmin") != null) { %>
                           //   <div className="float-right">

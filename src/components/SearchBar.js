@@ -7,14 +7,18 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: null
 
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    if (event.target.value === "") {
+      this.setState({value: null})
+    } else {
+      this.setState({value: event.target.value});
+    }
   }
 
   render() {
@@ -26,11 +30,12 @@ class SearchBar extends React.Component {
                 <div className="input-group-append">
                     <Link
                         to = {{
-                            pathname: '/Search',
-                            state: this.state.value,
+                            pathname: '/Reload',
+                            state: {value: {word: this.state.value}, route: "Search"},
                         }}
+                        replace={true}
                     >
-                        <input className="btn btn-outline-secondary" type="submit" id="button-addon2" value="search" />
+                        <input onClick={(e)=>e.target.parentElement.parentElement.previousSibling.value=""} className="btn btn-outline-secondary" type="submit" id="button-addon2" value="search" />
                     </Link>
                 </div>
             </div>

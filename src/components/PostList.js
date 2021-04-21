@@ -11,7 +11,8 @@ class PostList extends React.Component {
         boardid: null,
         order: " order by postid desc",
         qwhere: " where boardid=",
-        username: null
+        username: null,
+        like: null,
       },
       rows: [],
       recmdRows: [],
@@ -23,24 +24,30 @@ class PostList extends React.Component {
       },
       isRecmd: false,
       isProfile: false,
+      isSearch: false,
     };
     if (!props.boardid) {
-      this.state.queryData.username = props.username;
-      this.state.isProfile = true;
+      if (props.username) {
+        this.state.queryData.username = props.username;
+        this.state.isProfile = true;
+      } else {
+        this.state.queryData.like = props.like;
+        this.state.isSearch = true;
+      }
     } else {
       this.state.queryData.boardid = props.boardid;
     }
-    axios.post('http://localhost:3002/api/postList', this.state.queryData)
+    axios.post('http://localhost:8080/api/postList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
   }
 
   componentDidUpdate() {
-    if (!this.state.isProfile) {
+    if (!(this.state.isProfile || this.state.isSearch)) {
       if (this.props.checkFlag() === true) {
         // this.setState({queryData: {...this.state.queryData, boardid: this.props.boardid}})
         this.state.isRecmd = false;
         this.state.queryData.boardid = this.props.boardid;
-        axios.post('http://localhost:3002/api/postList', this.state.queryData)
+        axios.post('http://localhost:8080/api/postList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
       }
     }
@@ -102,7 +109,7 @@ class PostList extends React.Component {
       return (
         <div>
           <div id="bdr" style={{"border": "1px solid blue", "padding": "10px"}}>
-            {!this.state.isProfile ?
+            {!(this.state.isProfile || this.state.isSearch) ?
               <div id="btns">
                 { !this.state.isRecmd ? 
                   <div>

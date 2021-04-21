@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import CmtList from '../components/CmtList';
+import Gboard from '../components/Gboard';
 import PostList from '../components/PostList';
 import {Link} from 'react-router-dom';
 
@@ -28,7 +29,7 @@ class Profile extends React.Component {
         history.push('/');
     }
     this.state.queryData.userid = location.state;
-    axios.post('http://localhost:3002/api/profile', this.state.queryData)
+    axios.post('http://localhost:8080/api/profile', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows, isLoading: true}));
   }
 
@@ -39,7 +40,7 @@ class Profile extends React.Component {
 
   render() {
     if (!this.state.isLoading) {
-      console.log(this.state.rows);
+      // console.log(this.state.rows);
       return <h4>loading...</h4>
     } else {
       let {rows} = this.state;
@@ -49,12 +50,15 @@ class Profile extends React.Component {
         <div className="jumbotron">
           <div className="float-left">
             {row.image !== null ? 
-              <img style={this.state.circleStyle} src={`http://localhost:3002/api/image?fileName=${row.image}`} /> :
+              <img style={this.state.circleStyle} src={`http://localhost:8080/api/image?fileName=${row.image}`} /> :
               <div style={this.state.circleStyle}> </div>
             }
           </div>
           <br /> 
-          <h2 className="display-4">{row.username}</h2>
+          <h2 className="display-4">&nbsp;{row.username}</h2>
+          <footer className="blockquote-footer">
+            가입일 : {row.regdate.replace('T', ' ').substring(0, 19)}
+          </footer>
           {/* <% if(isLogin && !username.equals("admin")) { %>
           <% if(uid.equals(session.getAttribute("uid")) || session.getAttribute("isAdmin") != null) { %>
             <div className="float-right">
@@ -104,7 +108,7 @@ class Profile extends React.Component {
                   </div> : 
                 this.state.pMode === 'guest' ? 
                   <div>
-                    방명록
+                  <Gboard userid={this.state.queryData.userid} />
                   </div> : ""
                 }
             </div>

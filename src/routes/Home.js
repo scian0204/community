@@ -10,6 +10,12 @@ class Home extends React.Component {
           boardid: 1,
           flag: false
       };
+      const { location, history } = this.props;
+      if (!location.state) {
+          history.push('/');
+      }else {
+        this.state.boardid = location.state.boardid;
+      }
     }
 
     checkFlag = () => {

@@ -32,6 +32,8 @@ router.post('/postList', (req, res) => {
   let sql = `select postid, title, username, writedate, viewcnt, recmd from post${queryData.qwhere}${queryData.boardid}${queryData.order}`;
   if (queryData.username !== null) {
     sql = `select postid, title, username, writedate, viewcnt, recmd from post where username='${queryData.username}'${queryData.order}`
+  } else if (queryData.like !== null) {
+    sql = `select postid, title, username, writedate, viewcnt, recmd from post where title like '%${queryData.like}%'`
   }
   // console.log(sql);
   var query = connection.query(sql, function(err, rows) {
@@ -98,9 +100,12 @@ router.post('/cmtList', (req, res) => {
     }
   };
   let queryData = req.body;
-  let sql = `select comment.*, userid from comment left join member on member.username=comment.username where postid=${queryData.postid}`;
+  let sql = `select comment.*, userid, image from comment left join member on member.username=comment.username where postid=${queryData.postid}`;
   if (queryData.username !== null) {
-    sql = `select comment.*, userid from comment left join member on member.username=comment.username where comment.username='${queryData.username}'`;
+    sql = `select comment.*, userid, image from comment left join member on member.username=comment.username where comment.username='${queryData.username}'`;
+  } else if (queryData.userid !== null) {
+    sql = `select gboard.*, member.userid, member.image from gboard left join member on member.username=gboard.username where gboard.userid='${queryData.userid}'`;
+    // console.log(sql);
   }
   // console.log(sql);
   var query = connection.query(sql, function(err, rows) {
@@ -130,7 +135,50 @@ router.post('/profile', (req, res) => {
     }
   };
   let queryData = req.body;
-  let sql = `select username, image, userid from member where userid='${queryData.userid}'`;
+  let sql = `select username, image, userid, regdate from member where userid='${queryData.userid}'`;
+  // console.log(sql);
+  var query = connection.query(sql, function(err, rows) {
+    if(err) throw err;
+    if(rows[0]) {
+      responseData.err = 1;
+      responseData.result = {rows};
+    } else {
+      responseData.err = 0;
+    }
+    res.json(responseData);
+  })
+});
+
+router.post('/boardShow', (req, res) => {
+  let responseData = {
+    result: {
+    }
+  };
+  let queryData = req.body;
+  let sql = `select boardid, boardname, username, regdate from board`;
+  if (queryData.like !== null) {
+    sql = `select boardid, boardname, username, regdate from board where boardname like '%${queryData.like}%' or username like '%${queryData.like}%'`;
+  }
+  // console.log(sql);
+  var query = connection.query(sql, function(err, rows) {
+    if(err) throw err;
+    if(rows[0]) {
+      responseData.err = 1;
+      responseData.result = {rows};
+    } else {
+      responseData.err = 0;
+    }
+    res.json(responseData);
+  })
+});
+
+router.post('/search', (req, res) => {
+  let responseData = {
+    result: {
+    }
+  };
+  let queryData = req.body;
+  let sql = `SELECT * FROM community.member where userid like '%${queryData.like}%' or username like '%${queryData.like}%';`;
   // console.log(sql);
   var query = connection.query(sql, function(err, rows) {
     if(err) throw err;

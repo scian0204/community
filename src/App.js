@@ -9,12 +9,13 @@ import Form from './routes/Form';
 import PostShow from './routes/PostShow';
 import Profile from './routes/Profile';
 import Search from './routes/Search';
+import Reload from './routes/Reload';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: []
+      refrash: false,
     };
     // fetch('http://localhost:3002/api')
     //     .then(res=>res.json())
@@ -35,15 +36,20 @@ class App extends React.Component {
             <div className='col-sm-4'>
               <SearchBar />
             </div>
-            <div className='col-sm-4'></div>
+            <div className='col-sm-4'>
+              {/* <div className="float-right">
+                <button onClick={()=>this.setState({refrash: true})} className="btn btn-secondary">새로고침</button>
+              </div> */}
+            </div>
         </div>
-        <Route path="/" exact={true} component={Home} />
+        <Route path="/" exact={true} refresh component={Home} />
         <Route path="/BoardApprove" component={BoardApprove} />
         <Route path="/BoardShow" component={BoardShow} />
         <Route path="/Form" component={Form} />
         <Route path="/PostShow" component={PostShow} />
         <Route path="/Profile" component={Profile} />
-        <Route path="/Search" component={Search} />
+        <Route path="/Search" refresh component={Search} />
+        <Route path="/Reload" refresh component={Reload} />
         </div>
         {/* {rows.map(row => {
           return <span>{row.title} / </span>
