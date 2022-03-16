@@ -26,6 +26,7 @@
     "react": "npm start",
     "nodejs": "nodemon ./server/server.js"
   },
+  "proxy": "http://cianas.kro.kr:8081",
   "eslintConfig": {
     "extends": [
       "react-app",
