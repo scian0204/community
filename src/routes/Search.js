@@ -21,7 +21,7 @@ class Search extends React.Component {
             // this.setState({value: location.state})
             this.state.word = location.state.word;
         }
-        axios.post('http://localhost:8080/api/search', {like: this.state.word})
+        axios.post('http://cianas.kro.kr:8081/api/search', {like: this.state.word})
             .then(data=>this.setState({rows:data.data.result.rows, isLoading: true}));
     }
 
@@ -88,9 +88,9 @@ class Search extends React.Component {
                                     pathname: '/Profile',
                                     state: row.userid,}}>
                                 <div className="card" style={{width: "20%"}}>
-                                  <img src={`http://localhost:8080/api/image?fileName=${row.image}`} className="card-img-top" />
+                                  <img src={`http://cianas.kro.kr:8081/api/image?fileName=${row.image}`} className="card-img-top" />
                                   <div className="card-body">
-                                    <h5 className="card-title">{row.username}</h5>
+                                    <h5 className="card-title">{row.username}({row.userid})</h5>
                                     <p className="card-text">가입일 : {row.regdate.replace('T', ' ').substring(0, 19)}</p>
                                   </div>
                                 </div>

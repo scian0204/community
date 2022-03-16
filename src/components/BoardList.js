@@ -8,7 +8,7 @@ class BoardList extends React.Component {
       this.state = {
           rows: [],
       };
-      axios.post('http://localhost:8080/api/boardList')
+      axios.post('http://cianas.kro.kr:8081/api/boardList')
             .then(data=>this.setState({rows:data.data.result.rows}));
     //   console.log(this.state.rows);
     }

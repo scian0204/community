@@ -35,7 +35,7 @@ class CmtList extends React.Component {
       this.state.queryData.postid = props.postid;
 
     }
-    axios.post('http://localhost:8080/api/cmtList', this.state.queryData)
+    axios.post('http://cianas.kro.kr:8081/api/cmtList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
   }
 
@@ -112,7 +112,7 @@ class CmtList extends React.Component {
                           } : {
                               pathname: '/PostShow',
                               state: {postid: rows[e].postid},
-                          }}><img style={this.state.circleStyle} src={`http://localhost:8080/api/image?fileName=${rows[e].image}`} />&nbsp;{rows[e].username}
+                          }}><img style={this.state.circleStyle} src={`http://cianas.kro.kr:8081/api/image?fileName=${rows[e].image}`} />&nbsp;{rows[e].username}
                           </Link>
                           {/* // <% if(isLogin) { %>
                           // <% if(rs.getString("userid").equals(session.getAttribute("uid")) || session.getAttribute("isAdmin") != null) { %>

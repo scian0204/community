@@ -30,7 +30,7 @@ class Gboard extends React.Component {
 
     this.state.queryData.userid = props.userid;
 
-    axios.post('http://localhost:8080/api/cmtList', this.state.queryData)
+    axios.post('http://cianas.kro.kr:8081/api/cmtList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
   }
 
@@ -103,7 +103,7 @@ class Gboard extends React.Component {
                           to = {{
                               pathname: '/Reload',
                               state: {value: rows[e].userid, route: 'Profile'},
-                          }}><img style={this.state.circleStyle} src={`http://localhost:8080/api/image?fileName=${rows[e].image}`} />&nbsp;{rows[e].username}
+                          }}><img style={this.state.circleStyle} src={`http://cianas.kro.kr:8081/api/image?fileName=${rows[e].image}`} />&nbsp;{rows[e].username}
                           </Link>
                         </div>
                         <div className="card-body">

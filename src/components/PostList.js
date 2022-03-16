@@ -37,7 +37,7 @@ class PostList extends React.Component {
     } else {
       this.state.queryData.boardid = props.boardid;
     }
-    axios.post('http://localhost:8080/api/postList', this.state.queryData)
+    axios.post('http://cianas.kro.kr:8081/api/postList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
   }
 
@@ -47,7 +47,7 @@ class PostList extends React.Component {
         // this.setState({queryData: {...this.state.queryData, boardid: this.props.boardid}})
         this.state.isRecmd = false;
         this.state.queryData.boardid = this.props.boardid;
-        axios.post('http://localhost:8080/api/postList', this.state.queryData)
+        axios.post('http://cianas.kro.kr:8081/api/postList', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows}));
       }
     }

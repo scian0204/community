@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       refrash: false,
     };
-    // fetch('http://localhost:3002/api')
+    // fetch('http://cianas.kro.kr:3002/api')
     //     .then(res=>res.json())
     //     .then(data=>this.setState({rows:data.result.rows}));
   }

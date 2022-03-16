@@ -21,7 +21,7 @@ class PostShow extends React.Component {
       }else {
         this.state.queryData.postid = location.state.postid;
       }
-      axios.post('http://localhost:8080/api/postShow', this.state.queryData)
+      axios.post('http://cianas.kro.kr:8081/api/postShow', this.state.queryData)
           .then(data=>this.setState({rows:data.data.result.rows, isLoading: true}));
     }
     
@@ -57,7 +57,7 @@ class PostShow extends React.Component {
                         
                         {row.image === null ? <br/> :
                             <div>
-                                <img src={`http://localhost:8080/api/image?fileName=${row.image}`} width="50%"/> <hr />
+                                <img src={`http://cianas.kro.kr:8081/api/image?fileName=${row.image}`} width="50%"/> <hr />
                             </div>
                         }
                         <p>{row.content}</p>

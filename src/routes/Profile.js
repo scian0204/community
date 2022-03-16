@@ -29,7 +29,7 @@ class Profile extends React.Component {
         history.push('/');
     }
     this.state.queryData.userid = location.state;
-    axios.post('http://localhost:8080/api/profile', this.state.queryData)
+    axios.post('http://cianas.kro.kr:8081/api/profile', this.state.queryData)
         .then(data=>this.setState({rows:data.data.result.rows, isLoading: true}));
   }
 
@@ -50,7 +50,7 @@ class Profile extends React.Component {
         <div className="jumbotron">
           <div className="float-left">
             {row.image !== null ? 
-              <img style={this.state.circleStyle} src={`http://localhost:8080/api/image?fileName=${row.image}`} /> :
+              <img style={this.state.circleStyle} src={`http://cianas.kro.kr:8081/api/image?fileName=${row.image}`} /> :
               <div style={this.state.circleStyle}> </div>
             }
           </div>

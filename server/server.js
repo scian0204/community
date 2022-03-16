@@ -2,14 +2,18 @@ const express = require('express');
 const app = express();
 const api = require('./routes/index');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8081;
 const cors = require('cors');
 
+var safesitelist = ['http://cianas.kro.kr:3000', 'http://192.168.123.102:3000']
 
-let corsOptions = {
-    origin: 'http://localhost:3000', // 허락하고자 하는 요청 주소
-    credentials: true // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
-} 
+var corsOptions = {
+    origin: function(origin, callback) {
+        var issafesitelisted = safesitelist.indexOf(origin) !== -1;
+        callback(null, issafesitelisted);
+    },
+    credentials: true
+}
 
 
 app.use(bodyParser.json());

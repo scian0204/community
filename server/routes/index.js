@@ -6,8 +6,8 @@ var router = express.Router();
 var mysql = require("mysql");
 
 var connection = mysql.createConnection({
-  host : 'localhost',
-  port : 3306,
+  host : '192.168.123.102',
+  port : 3307,
   user : 'comu',
   password : '1234',
   database : 'community'  
@@ -185,6 +185,28 @@ router.post('/search', (req, res) => {
     if(rows[0]) {
       responseData.err = 1;
       responseData.result = {rows};
+    } else {
+      responseData.err = 0;
+    }
+    res.json(responseData);
+  })
+});
+
+router.post('/login', (req, res) => {
+  let responseData = {
+    result: {
+    }
+  };
+  let queryData = req.body;
+  let sql = `select userid, userpw, username from member where userid='${queryData.userid}' and userpw='${queryData.userpw}'`;
+  // console.log(sql);
+  var query = connection.query(sql, function(err, rows) {
+    if(err) throw err;
+    if(rows[0]) {
+      responseData.err = 1;
+      responseData.result = {rows};
+      console.log(rows);
+      // responseData.result.rows['RowDataPacket'].isLogin = true;
     } else {
       responseData.err = 0;
     }

@@ -14,7 +14,7 @@ class Login extends React.Component {
       this.handleChangeId = this.handleChangeId.bind(this);
       this.handleChangePw = this.handleChangePw.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-    //   axios.post('http://localhost:3002/api/boardList')
+    //   axios.post('http://cianas.kro.kr:3002/api/boardList')
     //         .then(data=>this.setState({rows:data.data.result.rows}));
     //   console.log(this.state.rows);
     }

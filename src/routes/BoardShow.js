@@ -22,7 +22,7 @@ class BoardShow extends React.Component {
       this.state.queryData.like = props.like;
       this.state.isSearch = true;
     }
-    axios.post('http://localhost:8080/api/boardShow', this.state.queryData)
+    axios.post('http://cianas.kro.kr:8081/api/boardShow', this.state.queryData)
       .then(data => this.setState({ rows: data.data.result.rows }));
   }
 
