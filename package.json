@@ -21,7 +21,7 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "export PORT=8082 && react-scripts start",
     "build": "react-scripts build",
     "react": "npm start",
     "nodejs": "nodemon ./server/server.js"

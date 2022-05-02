@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 8081;
 const cors = require('cors');
 
-var safesitelist = ['http://cianas.kro.kr:3000', 'http://192.168.123.102:3000']
+var safesitelist = ['http://cianas.kro.kr:8082', 'http://192.168.123.102:8082']
 
 var corsOptions = {
     origin: function(origin, callback) {
